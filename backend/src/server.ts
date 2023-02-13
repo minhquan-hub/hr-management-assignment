@@ -6,7 +6,7 @@ import { InversifyExpressServer } from "inversify-express-utils";
 import app from "./app";
 import logger from "./ultils/logger";
 import container from "./config/inversify.config";
-import "./controllers/book_controller";
+import "./controllers/user_controller";
 
 dotenv.config();
 const port = process.env.PORT || 5002;
