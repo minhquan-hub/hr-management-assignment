@@ -4,7 +4,9 @@ import mongoose, { MongooseOptions } from "mongoose";
 import { InversifyExpressServer } from "inversify-express-utils";
 
 import app from "./app";
+import logger from "./ultils/logger";
 import container from "./config/inversify.config";
+import "./controllers/book_controller";
 
 dotenv.config();
 const port = process.env.PORT || 5002;
@@ -24,6 +26,7 @@ mongoose
   } as MongooseOptions)
   .then(() => {
     console.log("Connected to MongooDB");
+    logger.info("Connected to MongooDB");
   })
   .catch((err) => {
     console.log("Failed to connect to MongooDB");
