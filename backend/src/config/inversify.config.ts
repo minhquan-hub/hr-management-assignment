@@ -12,6 +12,8 @@ import {
   verifyLeader,
   verifyLogin,
 } from "../middleware/auth_middleware";
+import TeamService from "../services/team_service";
+import { ITeamService } from "../interfaces/iteam_service";
 
 type T = any;
 
@@ -19,6 +21,7 @@ const container = new Container();
 
 container.bind<IUserService>(TYPES.User).to(UserService).inRequestScope();
 container.bind<IAuthService>(TYPES.Auth).to(AuthService).inRequestScope();
+container.bind<ITeamService>(TYPES.Team).to(TeamService).inRequestScope();
 container
   .bind<express.RequestHandler>("verifyLogin")
   .toConstantValue(verifyLogin);
