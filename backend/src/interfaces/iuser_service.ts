@@ -1,5 +1,5 @@
-import { UserCreateDto } from "../dtos/user_create_dto";
-import { UserDto } from "../dtos/user_dto";
+import { UserCreateDto } from "../dtos/user/user_create_dto";
+import { UserDto } from "../dtos/user/user_dto";
 import { IUser } from "../models/interface_model/user_interface_model";
 
 export interface IUserService {

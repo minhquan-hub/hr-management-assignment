@@ -1,12 +1,11 @@
-import { UserDto } from "./../dtos/user_dto";
 import bcrypt from "bcrypt";
 import { injectable } from "inversify";
-import { UserCreateDto } from "../dtos/user_create_dto";
+import { UserCreateDto } from "../dtos/user/user_create_dto";
+import { UserDto } from "../dtos/user/user_dto";
 import { IUserService } from "../interfaces/iuser_service";
 import { IUser } from "../models/interface_model/user_interface_model";
 import User from "../models/user_model";
 import logger from "../ultils/logger";
-import { UserUpdateDto } from "../dtos/user_update_dto";
 
 @injectable()
 class UserService implements IUserService {
@@ -14,6 +13,7 @@ class UserService implements IUserService {
     try {
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(userCreateDto.password, salt);
+
       const newUser = new User({
         fullName: userCreateDto.fullName,
         userName: userCreateDto.userName,
@@ -25,12 +25,11 @@ class UserService implements IUserService {
         city: userCreateDto.city,
         role: userCreateDto.role,
         status: userCreateDto.status,
-        isDeleted: false,
       });
 
       const user = await newUser.save();
       const userDto: UserDto = {
-        _id: user._id,
+        id: user._id,
         fullName: user.fullName,
         userName: user.userName,
         age: user.age,
@@ -42,7 +41,7 @@ class UserService implements IUserService {
 
       return userDto;
     } catch (error) {
-      console.log(error);
+      console.log("Error: " + error);
       logger.error(`The error is at addUser method of UserService: ${error}`);
     }
   }
@@ -56,7 +55,7 @@ class UserService implements IUserService {
       }
       return userUpdate;
     } catch (error) {
-      console.log(error);
+      console.log("Error: " + error);
       logger.error(
         `The error is at updateUser method of UserService: ${error}`
       );
@@ -79,7 +78,7 @@ class UserService implements IUserService {
       }
       return userDelete;
     } catch (error) {
-      console.log(error);
+      console.log("Error: " + error);
       logger.error(
         `The error is at deleteUser method of UserService: ${error}`
       );

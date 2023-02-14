@@ -1,6 +1,5 @@
 import { IUserService } from "./../interfaces/iuser_service";
 import { StatusCodes } from "http-status-codes";
-import "reflect-metadata";
 import { inject } from "inversify";
 import {
   controller,
@@ -12,6 +11,8 @@ import {
 import { NextFunction, Response, Request, application } from "express";
 import logger from "../ultils/logger";
 import { TYPES } from "../config/types";
+import container from "../config/inversify.config";
+import express from "express";
 
 @controller("/user")
 export default class UserController {
@@ -21,7 +22,12 @@ export default class UserController {
     this._userService = UserService;
   }
 
-  @httpPost("/")
+  @httpPost(
+    "/",
+    container.get<express.RequestHandler>("verifyLogin"),
+    container.get<express.RequestHandler>("verifyAdmin"),
+    container.get<express.RequestHandler>("verifyLeader")
+  )
   async addUser(req: Request, res: Response, next: NextFunction) {
     try {
       const userCreateDto = req.body;
@@ -35,7 +41,12 @@ export default class UserController {
     }
   }
 
-  @httpPut("/:id")
+  @httpPut(
+    "/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
+    container.get<express.RequestHandler>("verifyAdmin"),
+    container.get<express.RequestHandler>("verifyLeader")
+  )
   async updateUser(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id;
@@ -50,7 +61,12 @@ export default class UserController {
     }
   }
 
-  @httpDelete("/:id")
+  @httpDelete(
+    "/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
+    container.get<express.RequestHandler>("verifyAdmin"),
+    container.get<express.RequestHandler>("verifyLeader")
+  )
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id;

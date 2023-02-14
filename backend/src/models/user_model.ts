@@ -20,7 +20,7 @@ const UserSchema: Schema = new Schema({
   city: { type: String, required: true },
   role: { type: String, enum: Role, required: true },
   status: { type: String, enum: Status, required: true },
-  isDeleted: { type: Boolean, required: true },
+  isDeleted: { type: Boolean, required: true, default: false },
 });
 
 const User = model<IUser>("User", UserSchema);

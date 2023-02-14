@@ -7,6 +7,7 @@ import app from "./app";
 import logger from "./ultils/logger";
 import container from "./config/inversify.config";
 import "./controllers/user_controller";
+import "./controllers/auth_controller";
 
 dotenv.config();
 const port = process.env.PORT || 5002;
@@ -30,6 +31,7 @@ mongoose
   })
   .catch((err) => {
     console.log("Failed to connect to MongooDB");
+    logger.error("Failed to connect to MongooDB");
   });
 
 let appConfigured = server.build();
