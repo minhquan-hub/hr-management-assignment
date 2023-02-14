@@ -13,18 +13,125 @@
   "basePath": "",
   "tags": [
     {
-      "name": "Book",
-      "description": "API for books in the system"
+      "name": "HR Management",
+      "description": "API for HR Management in the system"
     }
   ],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "schemes": ["http", "https"],
-  "paths": {},
+  "paths": {
+    "/api/user": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Post add user in the system",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Add new user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data"
+          }
+        }
+      }
+    },
+    "/api/user/{id}": {
+      "put": {
+        "tags": ["User"],
+        "summary": "Update user in the system",
+        "description": "Update user details using their ID.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the user to update.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "User object of the user to update",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "requestBody": {
+          "description": "User object that needs to be updated",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data"
+          }
+        }
+      }
+    }
+  },
   "definitions": {
     "id": {
       "properties": {
         "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "status": {
           "type": "string"
         }
       }

@@ -1,4 +1,4 @@
 export enum Status {
-  Available = "Available",
-  Unavailable = "Unavailable",
+  Available = "available",
+  Unavailable = "unavailable",
 }
