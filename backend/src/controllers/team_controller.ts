@@ -44,7 +44,7 @@ export default class TeamController {
       const team = await this._teamService.addMember(id, memberId);
       logger.info(`Add member: ${team}`);
       return res
-        .status(StatusCodes.NO_CONTENT)
+        .status(StatusCodes.OK)
         .json({ message: "Add member successfully", isSuccess: true });
     } catch (error) {
       logger.error(
@@ -78,8 +78,8 @@ export default class TeamController {
       const teamName = req.body.teamName;
       const team = await this._teamService.updateTeamName(id, teamName);
       logger.info(`Updated team: ${team}`);
-      return res
-        .status(StatusCodes.NO_CONTENT)
+      res
+        .status(StatusCodes.OK)
         .json({ message: "Updated teamName successfully", isSuccess: true });
     } catch (error) {
       logger.error(
@@ -99,7 +99,7 @@ export default class TeamController {
       const team = await this._teamService.updateTeamLeader(id, teamLeaderId);
       logger.info(`Updated team leader: ${team}`);
       return res
-        .status(StatusCodes.NO_CONTENT)
+        .status(StatusCodes.OK)
         .json({ message: "Updated teamLeader successfully", isSuccess: true });
     } catch (error) {
       logger.error(
@@ -119,7 +119,7 @@ export default class TeamController {
       const team = await this._teamService.removeMember(id, memberId);
       logger.info(`Remove member: ${team}`);
       return res
-        .status(StatusCodes.NO_CONTENT)
+        .status(StatusCodes.OK)
         .json({ message: "Remove member successfully", isSuccess: true });
     } catch (error) {
       logger.error(
@@ -137,7 +137,7 @@ export default class TeamController {
       const team = await this._teamService.deleteTeam(id);
       logger.info(`Delete team: ${team}`);
       return res
-        .status(StatusCodes.NO_CONTENT)
+        .status(StatusCodes.OK)
         .json({ message: "Delete team successfully", isSuccess: true });
     } catch (error) {
       logger.error(
