@@ -36,6 +36,23 @@ export default class TeamController {
     }
   }
 
+  @httpPut("/add-member/:id")
+  async addMember(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id;
+      const memberId = req.body.memberId;
+      const team = await this._teamService.addMember(id, memberId);
+      return res.status(StatusCodes.OK).json(team);
+    } catch (error) {
+      logger.error(
+        `The error is at addUser method of TeamController: ${error}`
+      );
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
+
   @httpGet("/")
   async getAllTeam(req: Request, res: Response, next: NextFunction) {
     try {
@@ -51,7 +68,7 @@ export default class TeamController {
     }
   }
 
-  @httpPut("/updateTeamName/:id")
+  @httpPut("/update-team-name/:id")
   async updateTeamName(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id;
@@ -68,7 +85,7 @@ export default class TeamController {
     }
   }
 
-  @httpPut("/updateTeamLeader/:id")
+  @httpPut("/update-team-leader/:id")
   async updateTeamLeader(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id;

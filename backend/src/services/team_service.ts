@@ -34,8 +34,56 @@ export default class TeamService implements ITeamService {
     }
   }
 
-  addMember(memberId: string): Promise<TeamDto | undefined> {
-    throw new Error("Method not implemented.");
+  async addMember(id: string, memberId: string): Promise<TeamDto | undefined> {
+    try {
+      const team = await Team.findById(id, { isDeleted: false });
+      if (!team) {
+        logger.warn(
+          `The warning is at addMember method of TeamService: Team with id ${id} not found`
+        );
+        throw new Error(`Team with id ${id} not found`);
+      }
+      const memberList = team?.member;
+
+      memberList?.push(memberId);
+      const teamUpdate = await Team.findByIdAndUpdate(id, {
+        member: memberList,
+      });
+
+      const teamAfterUpdate = await Team.findByIdAndUpdate(teamUpdate?._id);
+
+      if (!teamAfterUpdate) {
+        logger.warn(
+          `The warning is at addMember method of TeamService: TeamUpdate with id ${id} not updated`
+        );
+        throw new Error(`Team with id ${id} not updated`);
+      }
+
+      const teamLeaderDto = await this.getTeamLeader(
+        teamAfterUpdate.teamLeaderId
+      );
+
+      if (!teamLeaderDto) {
+        logger.warn(
+          `The warning is at addMember method of TeamService: Team leader with id ${teamAfterUpdate.teamLeaderId} not found`
+        );
+        throw new Error(
+          `Team leader with id ${teamAfterUpdate.teamLeaderId} not found`
+        );
+      }
+
+      const teamDto: TeamDto = {
+        id: teamAfterUpdate._id,
+        name: teamAfterUpdate.name,
+        member: teamAfterUpdate.member,
+        teamLeader: teamLeaderDto,
+      };
+
+      return teamDto;
+    } catch (error) {
+      console.error(error);
+      logger.error(`The error is at addMember method of TeamService: ${error}`);
+    }
   }
 
   async getAllTeam(): Promise<TeamDto[] | undefined> {
