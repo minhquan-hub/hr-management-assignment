@@ -8,6 +8,7 @@ import logger from "./ultils/logger";
 import container from "./config/inversify.config";
 import "./controllers/user_controller";
 import "./controllers/auth_controller";
+import "./controllers/team_controller";
 
 dotenv.config();
 const port = process.env.PORT || 5002;

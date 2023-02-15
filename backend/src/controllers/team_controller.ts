@@ -35,4 +35,34 @@ export default class TeamController {
         .json("Something server error");
     }
   }
+
+  @httpGet("/")
+  async getAllTeam(req: Request, res: Response, next: NextFunction) {
+    try {
+      const teamList = await this._teamService.getAllTeam();
+      return res.status(StatusCodes.OK).json(teamList);
+    } catch (error) {
+      logger.error(
+        `The error is at getAllTeam method of TeamController: ${error}`
+      );
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
+
+  async deleteTeam(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id;
+      const team = await this._teamService.deleteTeam(id);
+      return res.status(StatusCodes.OK).json(team);
+    } catch (error) {
+      logger.error(
+        `The error is at deleteTeam method of TeamController: ${error}`
+      );
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
 }

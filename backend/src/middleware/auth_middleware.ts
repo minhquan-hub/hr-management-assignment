@@ -50,3 +50,19 @@ export function verifyLeader(req: Request, res: Response, next: NextFunction) {
     }
   });
 }
+
+export function verifyAdminAndLeader(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  verifyLogin(req, res, async () => {
+    const user: IUser | null = await User.findById(req.body["user"]["id"]);
+
+    if (user?.role === "admin" || user?.role === "leader") {
+      next();
+    } else {
+      return res.status(StatusCodes.FORBIDDEN).json("You're not allowed");
+    }
+  });
+}

@@ -25,8 +25,7 @@ export default class UserController {
   @httpPost(
     "/",
     container.get<express.RequestHandler>("verifyLogin"),
-    container.get<express.RequestHandler>("verifyAdmin"),
-    container.get<express.RequestHandler>("verifyLeader")
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
   async addUser(req: Request, res: Response, next: NextFunction) {
     try {
@@ -44,8 +43,7 @@ export default class UserController {
   @httpPut(
     "/:id",
     container.get<express.RequestHandler>("verifyLogin"),
-    container.get<express.RequestHandler>("verifyAdmin"),
-    container.get<express.RequestHandler>("verifyLeader")
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
   async updateUser(req: Request, res: Response, next: NextFunction) {
     try {
@@ -64,8 +62,7 @@ export default class UserController {
   @httpDelete(
     "/:id",
     container.get<express.RequestHandler>("verifyLogin"),
-    container.get<express.RequestHandler>("verifyAdmin"),
-    container.get<express.RequestHandler>("verifyLeader")
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {

@@ -9,6 +9,7 @@ import AuthService from "../services/auth_service";
 import { IAuthService } from "../interfaces/iauth_service";
 import {
   verifyAdmin,
+  verifyAdminAndLeader,
   verifyLeader,
   verifyLogin,
 } from "../middleware/auth_middleware";
@@ -31,5 +32,8 @@ container
 container
   .bind<express.RequestHandler>("verifyLeader")
   .toConstantValue(verifyLeader);
+container
+  .bind<express.RequestHandler>("verifyAdminAndLeader")
+  .toConstantValue(verifyAdminAndLeader);
 
 export default container;

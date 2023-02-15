@@ -5,6 +5,14 @@ import { ITeam } from "../models/interface_model/team_interface_model";
 
 export interface ITeamService {
   addTeam(teamCreateDto: TeamCreateDto): Promise<TeamDto | undefined>;
+  addMember(id: string, memberId: string): Promise<TeamDto | undefined>;
+  getAllTeam(): Promise<TeamDto[] | undefined>;
+  updateTeamName(id: string, teamName: string): Promise<TeamDto | undefined>;
+  updateTeamLeader(
+    id: string,
+    teamLeaderId: string
+  ): Promise<TeamDto | undefined>;
+  removeMember(id: string, memberId: string): Promise<TeamDto | undefined>;
   updateTeam(
     id: string,
     teamUpdateDto: TeamUpdateDto
