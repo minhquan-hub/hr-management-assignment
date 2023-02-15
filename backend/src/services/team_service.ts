@@ -46,38 +46,10 @@ export default class TeamService implements ITeamService {
       const memberList = team?.member;
 
       memberList?.push(memberId);
-      const teamUpdate = await Team.findByIdAndUpdate(id, {
-        member: memberList,
-      });
-
-      const teamAfterUpdate = await Team.findByIdAndUpdate(teamUpdate?._id);
-
-      if (!teamAfterUpdate) {
-        logger.warn(
-          `The warning is at addMember method of TeamService: TeamUpdate with id ${id} not updated`
-        );
-        throw new Error(`Team with id ${id} not updated`);
-      }
-
-      const teamLeaderDto = await this.getTeamLeader(
-        teamAfterUpdate.teamLeaderId
+      const teamDto = await this.customizeMemberAfterUpdate(
+        team._id,
+        memberList
       );
-
-      if (!teamLeaderDto) {
-        logger.warn(
-          `The warning is at addMember method of TeamService: Team leader with id ${teamAfterUpdate.teamLeaderId} not found`
-        );
-        throw new Error(
-          `Team leader with id ${teamAfterUpdate.teamLeaderId} not found`
-        );
-      }
-
-      const teamDto: TeamDto = {
-        id: teamAfterUpdate._id,
-        name: teamAfterUpdate.name,
-        member: teamAfterUpdate.member,
-        teamLeader: teamLeaderDto,
-      };
 
       return teamDto;
     } catch (error) {
@@ -174,8 +146,35 @@ export default class TeamService implements ITeamService {
     }
   }
 
-  removeMember(id: string, memberId: string): Promise<TeamDto | undefined> {
-    throw new Error("Method not implemented.");
+  async removeMember(
+    id: string,
+    memberId: string
+  ): Promise<TeamDto | undefined> {
+    try {
+      const team = await Team.findById(id, { isDeleted: false });
+      if (!team) {
+        logger.warn(
+          `The warning is at addMember method of TeamService: Team with id ${id} not found`
+        );
+        throw new Error(`Team with id ${id} not found`);
+      }
+
+      const memberList = team?.member;
+      const index = memberList.indexOf(memberId);
+      memberList.splice(index, 1);
+
+      const teamDto = await this.customizeMemberAfterUpdate(
+        team._id,
+        memberList
+      );
+
+      return teamDto;
+    } catch (error) {
+      console.error(error);
+      logger.error(
+        `The error is at removeMember method of TeamService: ${error}`
+      );
+    }
   }
 
   updateTeam(
@@ -226,5 +225,45 @@ export default class TeamService implements ITeamService {
     };
 
     return teamLeaderDto;
+  }
+
+  async customizeMemberAfterUpdate(
+    id: string,
+    memberList: string[]
+  ): Promise<TeamDto> {
+    const teamUpdate = await Team.findByIdAndUpdate(id, {
+      member: memberList,
+    });
+
+    const teamAfterUpdate = await Team.findByIdAndUpdate(teamUpdate?._id);
+
+    if (!teamAfterUpdate) {
+      logger.warn(
+        `The warning is at addMember method of TeamService: TeamUpdate with id ${id} not updated`
+      );
+      throw new Error(`Team with id ${id} not updated`);
+    }
+
+    const teamLeaderDto = await this.getTeamLeader(
+      teamAfterUpdate.teamLeaderId
+    );
+
+    if (!teamLeaderDto) {
+      logger.warn(
+        `The warning is at addMember method of TeamService: Team leader with id ${teamAfterUpdate.teamLeaderId} not found`
+      );
+      throw new Error(
+        `Team leader with id ${teamAfterUpdate.teamLeaderId} not found`
+      );
+    }
+
+    const teamDto: TeamDto = {
+      id: teamAfterUpdate._id,
+      name: teamAfterUpdate.name,
+      member: teamAfterUpdate.member,
+      teamLeader: teamLeaderDto,
+    };
+
+    return teamDto;
   }
 }
