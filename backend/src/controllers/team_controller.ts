@@ -9,9 +9,11 @@ import {
   httpDelete,
 } from "inversify-express-utils";
 import { NextFunction, Response, Request, application } from "express";
+import express from "express";
 import logger from "../ultils/logger";
 import { TYPES } from "../config/types";
 import TeamService from "../services/team_service";
+import container from "../config/inversify.config";
 
 @controller("/team")
 export default class TeamController {
@@ -20,7 +22,7 @@ export default class TeamController {
     this._teamService = TeamService;
   }
 
-  @httpPost("/")
+  @httpPost("/", container.get<express.RequestHandler>("verifyAdmin"))
   async addTeam(req: Request, res: Response) {
     try {
       const teamCreateDto = req.body;
@@ -36,7 +38,10 @@ export default class TeamController {
     }
   }
 
-  @httpPut("/add-member/:id")
+  @httpPut(
+    "/add-member/:id",
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
+  )
   async addMember(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id;
@@ -56,7 +61,7 @@ export default class TeamController {
     }
   }
 
-  @httpGet("/")
+  @httpGet("/", container.get<express.RequestHandler>("verifyAdminAndLeader"))
   async getAllTeam(req: Request, res: Response, next: NextFunction) {
     try {
       const teamList = await this._teamService.getAllTeam();
@@ -72,7 +77,10 @@ export default class TeamController {
     }
   }
 
-  @httpGet("/get-all-member/:id")
+  @httpGet(
+    "/get-all-member/:id",
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
+  )
   async getAllMemberByTeamId(req: Request, res: Response) {
     try {
       const teamId = req.params.id;
@@ -89,7 +97,10 @@ export default class TeamController {
     }
   }
 
-  @httpPut("/update-team-name/:id")
+  @httpPut(
+    "/update-team-name/:id",
+    container.get<express.RequestHandler>("verifyAdmin")
+  )
   async updateTeamName(req: Request, res: Response) {
     try {
       const id = req.params.id;
@@ -109,7 +120,10 @@ export default class TeamController {
     }
   }
 
-  @httpPut("/update-team-leader/:id")
+  @httpPut(
+    "/update-team-leader/:id",
+    container.get<express.RequestHandler>("verifyAdmin")
+  )
   async updateTeamLeader(req: Request, res: Response) {
     try {
       const id = req.params.id;
@@ -129,7 +143,10 @@ export default class TeamController {
     }
   }
 
-  @httpPut("/remove-member/:id")
+  @httpPut(
+    "/remove-member/:id",
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
+  )
   async removeMember(req: Request, res: Response) {
     try {
       const id = req.params.id;
@@ -149,6 +166,7 @@ export default class TeamController {
     }
   }
 
+  @httpDelete("/:id", container.get<express.RequestHandler>("verifyAdmin"))
   async deleteTeam(req: Request, res: Response) {
     try {
       const id = req.params.id;
