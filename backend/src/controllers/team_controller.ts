@@ -60,10 +60,28 @@ export default class TeamController {
   async getAllTeam(req: Request, res: Response, next: NextFunction) {
     try {
       const teamList = await this._teamService.getAllTeam();
+      logger.info(`Get all team: ${teamList}`);
       return res.status(StatusCodes.OK).json(teamList);
     } catch (error) {
       logger.error(
         `The error is at getAllTeam method of TeamController: ${error}`
+      );
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
+
+  @httpGet("/get-all-member/:id")
+  async getAllMemberByTeamId(req: Request, res: Response) {
+    try {
+      const teamId = req.params.id;
+      const memberList = await this._teamService.getAllMemberByTeamId(teamId);
+      logger.info(`Get all member by teamId: ${memberList}`);
+      return res.status(StatusCodes.OK).json(memberList);
+    } catch (error) {
+      logger.error(
+        `The error is at getAllMemberByTeamId method of TeamController: ${error}`
       );
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)

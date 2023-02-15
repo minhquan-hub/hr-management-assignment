@@ -85,6 +85,45 @@ export default class TeamService implements ITeamService {
     }
   }
 
+  async getAllMemberByTeamId(teamId: string): Promise<UserDto[] | undefined> {
+    try {
+      let userDtoList: UserDto[] = [];
+      const team = await Team.findById(teamId);
+      if (!team) {
+        logger.warn(
+          `The warning is at getAllMemberByTeamId method of TeamService: TeamId with id ${teamId} not found`
+        );
+        throw new Error(`Team with teamId ${teamId} not found`);
+      }
+
+      const memberList = team.member;
+      for (let member of memberList) {
+        console.log(member);
+        const user = await User.findById(member);
+
+        const userDto: UserDto = {
+          id: user?._id,
+          fullName: user?.fullName,
+          userName: user?.userName,
+          age: user?.age,
+          gender: user?.gender,
+          phone: user?.phone,
+          email: user?.email,
+          city: user?.city,
+        };
+
+        userDtoList.push(userDto);
+      }
+
+      return userDtoList;
+    } catch (error) {
+      console.error(error);
+      logger.error(
+        `The error is at getAllMemberByTeamId method of TeamService: ${error}`
+      );
+    }
+  }
+
   async updateTeamName(
     id: string,
     teamName: string
