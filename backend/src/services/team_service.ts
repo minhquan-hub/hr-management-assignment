@@ -98,6 +98,7 @@ export default class TeamService implements ITeamService {
     teamLeaderId: string
   ): Promise<TeamDto | undefined> {
     try {
+      console.log(`updateTeamLeader: ${teamLeaderId}`);
       const option = { new: true };
       const team = await Team.findByIdAndUpdate(
         id,

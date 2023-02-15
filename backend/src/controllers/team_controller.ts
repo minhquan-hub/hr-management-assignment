@@ -51,7 +51,7 @@ export default class TeamController {
     }
   }
 
-  @httpPut("/:id")
+  @httpPut("/updateTeamName/:id")
   async updateTeamName(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id;
@@ -61,6 +61,23 @@ export default class TeamController {
     } catch (error) {
       logger.error(
         `The error is at updateTeamName method of TeamController: ${error}`
+      );
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
+
+  @httpPut("/updateTeamLeader/:id")
+  async updateTeamLeader(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id;
+      const teamLeaderId = req.body.teamLeaderId;
+      const team = await this._teamService.updateTeamLeader(id, teamLeaderId);
+      return res.status(StatusCodes.OK).json(team);
+    } catch (error) {
+      logger.error(
+        `The error is at updateTeamLeader method of TeamController: ${error}`
       );
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
