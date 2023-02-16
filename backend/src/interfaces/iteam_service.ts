@@ -8,6 +8,7 @@ export interface ITeamService {
   addTeam(teamCreateDto: TeamCreateDto): Promise<TeamDto | undefined>;
   addMember(id: string, memberId: string): Promise<TeamDto | undefined>;
   getAllTeam(): Promise<TeamDto[] | undefined>;
+  getAllLeader(): Promise<UserDto[] | undefined>;
   getAllMemberByTeamId(teamId: string): Promise<UserDto[] | undefined>;
   updateTeamName(id: string, teamName: string): Promise<TeamDto | undefined>;
   updateTeamLeader(

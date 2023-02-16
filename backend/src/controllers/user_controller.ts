@@ -50,7 +50,10 @@ export default class UserController {
       const id = req.params.id;
       const userUpdateDto = req.body;
       const user = await this._userService.updateUser(id, userUpdateDto);
-      return res.status(StatusCodes.OK).json(user);
+      logger.info(`Updated User: ${user}`);
+      return res
+        .status(StatusCodes.OK)
+        .json({ message: "Updated User successfully", isSuccess: true });
     } catch (error) {
       logger.error(`The error is at get method updateUser: ${error}`);
       res
@@ -68,7 +71,10 @@ export default class UserController {
     try {
       const id = req.params.id;
       const user = await this._userService.deleteUser(id);
-      return res.status(StatusCodes.OK).json(user);
+      logger.info(`Deleted User: ${user}`);
+      return res
+        .status(StatusCodes.OK)
+        .json({ message: "Deleted User successfully", isSuccess: true });
     } catch (error) {
       logger.error(`The error is at get method deleteUser: ${error}`);
       res

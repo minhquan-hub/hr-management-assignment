@@ -37,6 +37,7 @@ class UserService implements IUserService {
         phone: user.phone,
         email: user.email,
         city: user.city,
+        role: user.role,
       };
 
       return userDto;

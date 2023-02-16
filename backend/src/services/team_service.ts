@@ -85,6 +85,57 @@ export default class TeamService implements ITeamService {
     }
   }
 
+  async getAllLeader(): Promise<UserDto[] | undefined> {
+    try {
+      const leaderList = await User.find({
+        isDeleted: false,
+        role: "leader",
+        status: "available",
+      });
+
+      let userDtoList: UserDto[] = [];
+
+      if (!leaderList) {
+        logger.warn(
+          `The warning is at getAllLeader method of TeamService: All the leader is unavailable`
+        );
+        throw new Error(`All the leader is unavailable`);
+      }
+
+      for (let leader of leaderList) {
+        const {
+          _id,
+          fullName,
+          userName,
+          age,
+          gender,
+          phone,
+          email,
+          city,
+          role,
+        } = leader;
+
+        userDtoList.push({
+          id: _id,
+          fullName: fullName,
+          userName: userName,
+          age: age,
+          gender: gender,
+          phone: phone,
+          email: email,
+          city: city,
+          role: role,
+        });
+      }
+      return userDtoList;
+    } catch (error) {
+      console.error(error);
+      logger.error(
+        `The error is at getAllLeader method of TeamService: ${error}`
+      );
+    }
+  }
+
   async getAllMemberByTeamId(teamId: string): Promise<UserDto[] | undefined> {
     try {
       let userDtoList: UserDto[] = [];
@@ -110,6 +161,7 @@ export default class TeamService implements ITeamService {
           phone: user?.phone,
           email: user?.email,
           city: user?.city,
+          role: user?.role,
         };
 
         userDtoList.push(userDto);
@@ -261,6 +313,7 @@ export default class TeamService implements ITeamService {
       phone: teamLeader?.phone,
       email: teamLeader?.email,
       city: teamLeader?.city,
+      role: teamLeader?.role,
     };
 
     return teamLeaderDto;

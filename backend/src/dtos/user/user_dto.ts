@@ -7,4 +7,5 @@ export interface UserDto {
   phone: string | undefined;
   email: string | undefined;
   city: string | undefined;
+  role: string | undefined;
 }

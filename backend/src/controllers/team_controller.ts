@@ -78,6 +78,25 @@ export default class TeamController {
   }
 
   @httpGet(
+    "/get-all-leader",
+    container.get<express.RequestHandler>("verifyAdmin")
+  )
+  async getAllLeader(req: Request, res: Response, next: NextFunction) {
+    try {
+      const leaderList = await this._teamService.getAllLeader();
+      logger.info(`Get all leader: ${leaderList}`);
+      return res.status(StatusCodes.OK).json(leaderList);
+    } catch (error) {
+      logger.error(
+        `The error is at getAllLeader method of TeamController: ${error}`
+      );
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
+
+  @httpGet(
     "/get-all-member/:id",
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
