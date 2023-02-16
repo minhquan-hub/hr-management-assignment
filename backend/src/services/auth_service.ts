@@ -67,8 +67,11 @@ export default class AuthService implements IAuthService {
           token: token,
           isSuccess: true,
         };
+
         return authDto;
       }
+
+      return authDto;
     } catch (error) {
       console.error("Error: " + error);
       logger.error(`The error is at loginUser method of AuthService: ${error}`);

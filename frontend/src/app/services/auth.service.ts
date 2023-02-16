@@ -36,8 +36,9 @@ export class AuthService {
     this.http.Post('/auth', data, '').subscribe((result) => {
       const user = JSON.stringify(result);
       const userData = JSON.parse(user);
+      console.log(userData);
       if (userData.isSuccess || null) {
-        console.log(userData);
+        // console.log(userData);
         const { token, role, userName } = userData;
         this.tokenStorageService.saveDataUser(token, role, userName);
         if (userData.role === 'admin' || userData.role === 'leader') {
