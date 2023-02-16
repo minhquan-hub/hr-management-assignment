@@ -20,13 +20,12 @@ export class AuthService {
   ) {}
 
   reloadUser() {
-    if (localStorage.getItem('user')) {
-      const user = localStorage.getItem('user');
-      const userData = user && JSON.parse(user);
+    const role = this.tokenStorageService.getRole();
+    if (role) {
       this.isUserLoggedIn.next(true);
-      if (userData.role === 'admin' || userData.role === 'leader') {
+      if (role === 'admin' || role === 'leader') {
         this.router.navigate(['/management']);
-      } else if (userData.role === 'member') {
+      } else if (role === 'member') {
         this.router.navigate(['/member']);
       }
     }
@@ -36,12 +35,11 @@ export class AuthService {
     this.http.Post('/auth', data, '').subscribe((result) => {
       const user = JSON.stringify(result);
       const userData = JSON.parse(user);
-      console.log(userData);
-      if (userData.isSuccess || null) {
-        // console.log(userData);
+
+      if (userData.isSuccess) {
         const { token, role, userName } = userData;
         this.tokenStorageService.saveDataUser(token, role, userName);
-        if (userData.role === 'admin' || userData.role === 'leader') {
+        if (role === 'admin' || role === 'leader') {
           this.router.navigate(['/management']);
         } else {
           this.router.navigate(['/member']);

@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../services/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,24 +10,23 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   menuType: String = 'default';
   userName: string = '';
-  constructor(private route: Router) {}
+  constructor(
+    private route: Router,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   ngOnInit(): void {
     this.route.events.subscribe((val: any) => {
       if (val.url) {
-        if (localStorage.getItem('user') && val.url.includes('management')) {
-          let user = localStorage.getItem('user');
-          let userData = user && JSON.parse(user);
-
-          this.userName = userData.userName;
-          this.menuType = userData.role;
+        const role = this.tokenStorageService.getRole();
+        const userName = this.tokenStorageService.getUserName();
+        if (role && userName && val.url.includes('management')) {
+          this.userName = userName;
+          this.menuType = role;
           console.log(this.userName);
-        } else if (localStorage.getItem('user') && val.url.includes('member')) {
-          let user = localStorage.getItem('user');
-          let userData = user && JSON.parse(user);
-
-          this.menuType = userData.role;
-          this.userName = userData.userName;
+        } else if (role && userName && val.url.includes('member')) {
+          this.userName = userName;
+          this.menuType = role;
         } else {
           this.menuType = 'default';
         }

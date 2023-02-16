@@ -16,7 +16,7 @@ export class LoginComponent {
     this.authError = '';
     this.auth.login(data);
     this.auth.isLoginError.subscribe((isError) => {
-      if (isError) this.authError = 'UserName or password incorrect';
+      if (!isError) this.authError = 'UserName or password incorrect';
     });
   }
 }

@@ -1,6 +1,7 @@
 <div class="container-login">
   <div class="login">
     <h1>Login</h1>
+    <p class="error-p">{{ authError }}</p>
     <form
       #userLogin="ngForm"
       (ngSubmit)="login(userLogin.value)"
