@@ -38,13 +38,11 @@ export class DetailTeamComponent implements OnInit {
   }
 
   removeMember(memberId: string) {
-    this.teamService
-      .removeMember(this.teamId!, memberId)
-      .subscribe((result) => {
-        if (this.subscriptionMember) {
-          this.subscriptionMember.unsubscribe();
-        }
-        this.subscriptionMember = this.getAllMember();
-      });
+    this.teamService.removeMember(this.teamId!, memberId).subscribe((data) => {
+      if (this.subscriptionMember) {
+        this.subscriptionMember.unsubscribe();
+      }
+      this.subscriptionMember = this.getAllMember();
+    });
   }
 }

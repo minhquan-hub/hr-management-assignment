@@ -32,8 +32,8 @@ export class AuthService {
   }
 
   login(data: login) {
-    this.http.Post('/auth', data, '').subscribe((result) => {
-      const user = JSON.stringify(result);
+    this.http.Post('/auth', data, '').subscribe((data) => {
+      const user = JSON.stringify(data);
       const userData = JSON.parse(user);
 
       if (userData.isSuccess) {

@@ -14,14 +14,6 @@
   color: blueviolet;
 }
 
-/* form {
-
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 5px;
-}*/
-
 .container-item {
   display: flex;
   align-items: center;
@@ -30,7 +22,6 @@
 }
 
 
-/* style the form labels */
 label {
   display: inline-block;
   align-content: center;
@@ -40,34 +31,3 @@ label {
   font-weight: bold;
 }
 
-.form-select {
-  width: 100%;
-  height: 34px;
-  margin-bottom: 10px;
-  border: 1px solid blueviolet;
-  border-radius: 3px;
-}
-
-/* style the form input fields */
-/* .form-input {
-  display: block;
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-size: 16px;
-} */
-
-/* style the form submit button */
-.form-button {
-  background-color: blueviolet;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border-radius: 3px;
-  font-size: 16px;
-  cursor: pointer;
-}

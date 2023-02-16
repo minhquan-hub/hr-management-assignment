@@ -36,9 +36,8 @@ export class CreateMemberComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.myForm.value);
-    this.teamService.createMember(this.myForm.value).subscribe((result) => {
-      if (result) {
+    this.teamService.createMember(this.myForm.value).subscribe((data) => {
+      if (data) {
         alert('Created Member successfully');
       }
     });

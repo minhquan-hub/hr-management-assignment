@@ -1,3 +1,4 @@
+import { TeamCreate } from './../models/teams/team-create';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -19,8 +20,19 @@ export class TeamService {
     return this.http.Post('/user', data, this.tokenStorageService.getToken());
   }
 
+  createTeam(data: TeamCreate): Observable<any> {
+    return this.http.Post('/team', data, this.tokenStorageService.getToken());
+  }
+
   getAllTeam(): Observable<any> {
     return this.http.Get('/team', this.tokenStorageService.getToken());
+  }
+
+  getAllLeader(): Observable<any> {
+    return this.http.Get(
+      '/team/get-all-leader',
+      this.tokenStorageService.getToken()
+    );
   }
 
   getAllMemberByTeamId(teamId: string) {

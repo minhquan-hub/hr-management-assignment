@@ -1,20 +1,32 @@
-<!-- <div class="container-create-member">
+<div class="container-create-member">
   <div class="login">
     <h1>Create Team</h1>
-    <form
-      #userLogin="ngForm"
-      (ngSubmit)="login(userLogin.value)"
-      class="common-form"
-    >
-      <input
-        class="form-input"
-        type="text"
-        ngModel
-        name="name"
-        placeholder="Enter Name"
-      />
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="common-form">
+      <div class="container-item" class="container-item">
+        <label>TeamName:</label>
+        <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="name"
+          placeholder="Enter TeamName"
+        />
+      </div>
 
-      <button class="form-button">Login</button>
+      <div class="container-item">
+        <label>TeamLeader:</label>
+        <select
+          name="status"
+          id="status"
+          class="form-select"
+          formControlName="teamLeaderId"
+        >
+          <option *ngFor="let leader of leaderList" [ngValue]="leader.id">
+            {{ leader.fullName }}
+          </option>
+        </select>
+      </div>
+      <button class="form-button">Create</button>
     </form>
   </div>
-</div> -->
+</div>

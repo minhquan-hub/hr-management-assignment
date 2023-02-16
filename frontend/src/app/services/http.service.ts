@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -21,16 +21,12 @@ export class HttpService {
     return this.http.put(this.baseUrl + url, data, this.addToken(token));
   }
 
-  // public Update(url: string, token: any) {
-  //   return this.http.put(this.baseUrl + url, '', this.addToken(token));
-  // }
-
   public Delete(url: string, token: any) {
     return this.http.delete(this.baseUrl + url, this.addToken(token));
   }
 
   public addToken(token: any) {
-    const header = new HttpHeaders().set('Authorization', `Bearer ${token}`); // may be localStorage/sessionStorage
+    const header = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return { headers: header };
   }
 }

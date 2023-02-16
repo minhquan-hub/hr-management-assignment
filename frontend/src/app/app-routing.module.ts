@@ -8,6 +8,7 @@ import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { ManagementComponent } from './management/management.component';
 import { Role } from './models/enum/role';
 import { CreateMemberComponent } from './create-member/create-member.component';
+import { CreateTeamComponent } from './create-team/create-team.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,7 +32,13 @@ const routes: Routes = [
     data: { roles: [Role.Member] },
   },
   {
-    path: 'create-member',
+    path: 'management/create-team',
+    component: CreateTeamComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] },
+  },
+  {
+    path: 'management/create-member',
     component: CreateMemberComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.Leader] },
