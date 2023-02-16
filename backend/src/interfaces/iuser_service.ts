@@ -4,6 +4,7 @@ import { IUser } from "../models/interface_model/user_interface_model";
 
 export interface IUserService {
   addUser(userCreateDto: UserCreateDto): Promise<UserDto | undefined>;
+  getAllUser(): Promise<UserDto[] | undefined>;
   updateUser(id: string, user: IUser): Promise<IUser | undefined>;
   deleteUser(id: string): Promise<IUser | undefined>;
 }

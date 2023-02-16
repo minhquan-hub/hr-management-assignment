@@ -37,6 +37,7 @@ export default class AuthService implements IAuthService {
   ): Promise<AuthDto | undefined> {
     try {
       let authDto: AuthDto = {
+        id: "",
         userName: "",
         role: "",
         token: "",
@@ -62,6 +63,7 @@ export default class AuthService implements IAuthService {
         const token = this.generateAccessToken(user);
 
         authDto = {
+          id: user._id,
           userName: user.userName,
           role: user.role,
           token: token,

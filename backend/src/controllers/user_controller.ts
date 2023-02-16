@@ -27,13 +27,28 @@ export default class UserController {
     container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
-  async addUser(req: Request, res: Response, next: NextFunction) {
+  async addUser(req: Request, res: Response) {
     try {
       const userCreateDto = req.body;
       const user = await this._userService.addUser(userCreateDto);
+      logger.info(`Added User ${user}`);
       return res.status(StatusCodes.OK).json(user);
     } catch (error) {
       logger.error(`The error is at get method addUser: ${error}`);
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
+
+  @httpGet("/", container.get<express.RequestHandler>("verifyAdminAndLeader"))
+  async getAllUser(req: Request, res: Response) {
+    try {
+      const userList = await this._userService.getAllUser();
+      logger.info(`Get All Users: ${userList}`);
+      res.status(StatusCodes.OK).json(userList);
+    } catch (error) {
+      logger.error(`The error is at get method getAllUser: ${error}`);
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json("Something server error");
@@ -45,7 +60,7 @@ export default class UserController {
     container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
-  async updateUser(req: Request, res: Response, next: NextFunction) {
+  async updateUser(req: Request, res: Response) {
     try {
       const id = req.params.id;
       const userUpdateDto = req.body;
@@ -67,7 +82,7 @@ export default class UserController {
     container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
-  async deleteUser(req: Request, res: Response, next: NextFunction) {
+  async deleteUser(req: Request, res: Response) {
     try {
       const id = req.params.id;
       const user = await this._userService.deleteUser(id);

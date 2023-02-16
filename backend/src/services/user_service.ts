@@ -47,6 +47,51 @@ class UserService implements IUserService {
     }
   }
 
+  async getAllUser(): Promise<UserDto[] | undefined> {
+    try {
+      const userList = await User.find({
+        isDeleted: false,
+        status: "available",
+        role: ["leader", "member"],
+      });
+
+      let userDtoList: UserDto[] = [];
+
+      for (let user of userList) {
+        const {
+          _id,
+          fullName,
+          userName,
+          age,
+          gender,
+          phone,
+          email,
+          city,
+          role,
+        } = user;
+
+        userDtoList.push({
+          id: _id,
+          fullName: fullName,
+          userName: userName,
+          age: age,
+          gender: gender,
+          phone: phone,
+          email: email,
+          city: city,
+          role: role,
+        });
+      }
+
+      return userDtoList;
+    } catch (error) {
+      console.log("Error: " + error);
+      logger.error(
+        `The error is at getAllUser method of UserService: ${error}`
+      );
+    }
+  }
+
   async updateUser(id: string, user: IUser): Promise<IUser | undefined> {
     try {
       const option = { new: true };
