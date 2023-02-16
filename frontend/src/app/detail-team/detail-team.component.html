@@ -1,0 +1,42 @@
+<div class="team-list">
+  <h1>All Member</h1>
+  <!-- <p class="message-p">{{ productMessage }}</p> -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>FullName</th>
+        <th>UserName</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>City</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of memberList">
+        <td>{{ item.id }}</td>
+        <td>{{ item.fullName }}</td>
+        <td>{{ item.userName }}</td>
+        <td>{{ item.age }}</td>
+        <td>{{ item.gender }}</td>
+        <td>{{ item.phone }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.city }}</td>
+        <td>
+          <fa-icon
+            (click)="removeMember(item.id)"
+            [icon]="iconDelete"
+          ></fa-icon>
+          <a
+            class="adjust-update-link"
+            routerLink="/seller-update-product/{{ item.id }}"
+            ><fa-icon [icon]="iconEdit"></fa-icon
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -21,6 +21,10 @@ export class HttpService {
     return this.http.put(this.baseUrl + url, data, this.addToken(token));
   }
 
+  // public Update(url: string, token: any) {
+  //   return this.http.put(this.baseUrl + url, '', this.addToken(token));
+  // }
+
   public Delete(url: string, token: any) {
     return this.http.delete(this.baseUrl + url, this.addToken(token));
   }

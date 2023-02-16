@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
         if (role && userName && val.url.includes('management')) {
           this.userName = userName;
           this.menuType = role;
-          console.log(this.userName);
         } else if (role && userName && val.url.includes('member')) {
           this.userName = userName;
           this.menuType = role;
@@ -36,6 +35,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('user');
+    this.tokenStorageService.logOut();
     this.route.navigate(['/']);
   }
 }

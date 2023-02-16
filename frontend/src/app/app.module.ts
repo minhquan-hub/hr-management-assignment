@@ -12,6 +12,8 @@ import { ManagementComponent } from './management/management.component';
 import { MemberComponent } from './member/member.component';
 import { CreateMemberComponent } from './create-member/create-member.component';
 import { CreateTeamComponent } from './create-team/create-team.component';
+import { DetailTeamComponent } from './detail-team/detail-team.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,9 @@ import { CreateTeamComponent } from './create-team/create-team.component';
     MemberComponent,
     CreateMemberComponent,
     CreateTeamComponent,
+    DetailTeamComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, FontAwesomeModule],
   providers: [],
   bootstrap: [AppComponent],
 })

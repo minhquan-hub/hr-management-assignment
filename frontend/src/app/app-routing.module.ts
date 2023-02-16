@@ -1,9 +1,10 @@
+import { DetailTeamComponent } from './detail-team/detail-team.component';
 import { AuthGuard } from './shared/auth.guard';
 import { MemberComponent } from './member/member.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { ManagementComponent } from './management/management.component';
 import { Role } from './models/enum/role';
 
@@ -13,6 +14,12 @@ const routes: Routes = [
   {
     path: 'management',
     component: ManagementComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.Leader] },
+  },
+  {
+    path: 'management-detail/:id',
+    component: DetailTeamComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.Leader] },
   },
