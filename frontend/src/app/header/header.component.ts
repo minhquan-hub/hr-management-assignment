@@ -14,14 +14,28 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.route.events.subscribe((val: any) => {
       if (val.url) {
-        if (localStorage.getItem('user') && val.url.includes('user')) {
-          this.menuType = 'admin';
+        if (localStorage.getItem('user') && val.url.includes('management')) {
           let user = localStorage.getItem('user');
           let userData = user && JSON.parse(user);
-          this.userName = userData[0].userName;
+
+          this.userName = userData.userName;
+          this.menuType = userData.role;
           console.log(this.userName);
+        } else if (localStorage.getItem('user') && val.url.includes('member')) {
+          let user = localStorage.getItem('user');
+          let userData = user && JSON.parse(user);
+
+          this.menuType = userData.role;
+          this.userName = userData.userName;
+        } else {
+          this.menuType = 'default';
         }
       }
     });
+  }
+
+  logout() {
+    localStorage.removeItem('user');
+    this.route.navigate(['/']);
   }
 }

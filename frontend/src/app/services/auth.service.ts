@@ -13,8 +13,14 @@ export class AuthService {
     this.http
       .post('http://localhost:5001/api/auth', data, { observe: 'response' })
       .subscribe((result) => {
-        console.log(result);
-        localStorage.setItem('user', JSON.stringify(result.body));
+        const user = JSON.stringify(result.body);
+        const userData = JSON.parse(user);
+        localStorage.setItem('user', user);
+        if (userData.role === 'admin' || userData.role === 'leader') {
+          this.router.navigate(['/management']);
+        } else {
+          this.router.navigate(['/member']);
+        }
       });
   }
 }
