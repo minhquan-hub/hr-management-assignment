@@ -1,0 +1,15 @@
+.container-login {
+}
+
+.login {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 80px;
+  color: blueviolet;
+}
+
+.login h1 {
+  margin-top: 50px;
+  margin-bottom: 80px;
+  color: blueviolet;
+}

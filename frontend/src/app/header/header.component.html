@@ -1,0 +1,27 @@
+<nav class="nav">
+  <h1><a routerLink="/">HR-MANAGEMENT</a></h1>
+  <div [ngSwitch]="menuType">
+    <ul *ngSwitchCase="'default'">
+      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="/login">Login</a></li>
+    </ul>
+    <ul *ngSwitchCase="'admin'">
+      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="/">Add Team</a></li>
+      <li><a routerLink="/">Add Member</a></li>
+      <li><a routerLink="/">User</a></li>
+      <li><a routerLink="/">Logout</a></li>
+    </ul>
+    <ul *ngSwitchCase="'leader'">
+      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="/">Add Member</a></li>
+      <li><a routerLink="/">User</a></li>
+      <li><a routerLink="/">Logout</a></li>
+    </ul>
+    <ul *ngSwitchCase="'member'">
+      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="/">User</a></li>
+      <li><a routerLink="/">Logout</a></li>
+    </ul>
+  </div>
+</nav>
