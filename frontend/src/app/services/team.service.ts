@@ -46,6 +46,14 @@ export class TeamService {
     );
   }
 
+  addMember(teamId: string, memberId: string): Observable<any> {
+    return this.http.Put(
+      `/team/add-member/${teamId}`,
+      memberId,
+      this.tokenStorageService.getToken()
+    );
+  }
+
   removeMember(teamId: string, memberId: string): Observable<any> {
     return this.http.Put(
       `/team/remove-member/${teamId}`,

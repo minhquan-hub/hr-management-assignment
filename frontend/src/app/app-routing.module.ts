@@ -52,7 +52,7 @@ const routes: Routes = [
     data: { roles: [Role.Admin, Role.Leader] },
   },
   {
-    path: 'management/add-member',
+    path: 'management/add-member/:id',
     component: AddMemberComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.Leader] },

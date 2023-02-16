@@ -1,0 +1,38 @@
+<div class="container-create-member">
+  <div class="login">
+    <h1>Create Team</h1>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="common-form">
+      <div class="container-item">
+        <label>TeamName:</label>
+        <p>hieuteam</p>
+        <!-- <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="name"
+          placeholder="Enter TeamName"
+        /> -->
+      </div>
+
+      <div class="container-item">
+        <label>Team Leader:</label>
+        <p>Minh Tran</p>
+      </div>
+
+      <div class="container-item">
+        <label>Member:</label>
+        <select
+          name="member"
+          id="member"
+          class="form-select"
+          formControlName="memberId"
+        >
+          <option *ngFor="let member of memberList" [ngValue]="member.id">
+            {{ member.fullName }}
+          </option>
+        </select>
+      </div>
+      <button class="form-button">Add Member</button>
+    </form>
+  </div>
+</div>
