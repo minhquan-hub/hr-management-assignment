@@ -41,7 +41,11 @@ export default class UserController {
     }
   }
 
-  @httpGet("/", container.get<express.RequestHandler>("verifyAdminAndLeader"))
+  @httpGet(
+    "/",
+    container.get<express.RequestHandler>("verifyLogin"),
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
+  )
   async getAllUser(req: Request, res: Response) {
     try {
       const userList = await this._userService.getAllUser();

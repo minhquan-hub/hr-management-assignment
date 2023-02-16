@@ -40,6 +40,7 @@ export default class TeamController {
 
   @httpPut(
     "/add-member/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
   async addMember(req: Request, res: Response, next: NextFunction) {
@@ -61,7 +62,11 @@ export default class TeamController {
     }
   }
 
-  @httpGet("/", container.get<express.RequestHandler>("verifyAdminAndLeader"))
+  @httpGet(
+    "/",
+    container.get<express.RequestHandler>("verifyLogin"),
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
+  )
   async getAllTeam(req: Request, res: Response, next: NextFunction) {
     try {
       const teamList = await this._teamService.getAllTeam();
@@ -79,6 +84,7 @@ export default class TeamController {
 
   @httpGet(
     "/get-all-leader",
+    container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdmin")
   )
   async getAllLeader(req: Request, res: Response, next: NextFunction) {
@@ -98,6 +104,7 @@ export default class TeamController {
 
   @httpGet(
     "/get-all-member/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
   async getAllMemberByTeamId(req: Request, res: Response) {
@@ -118,6 +125,7 @@ export default class TeamController {
 
   @httpPut(
     "/update-team-name/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdmin")
   )
   async updateTeamName(req: Request, res: Response) {
@@ -141,6 +149,7 @@ export default class TeamController {
 
   @httpPut(
     "/update-team-leader/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdmin")
   )
   async updateTeamLeader(req: Request, res: Response) {
@@ -164,6 +173,7 @@ export default class TeamController {
 
   @httpPut(
     "/remove-member/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
   async removeMember(req: Request, res: Response) {
@@ -185,7 +195,11 @@ export default class TeamController {
     }
   }
 
-  @httpDelete("/:id", container.get<express.RequestHandler>("verifyAdmin"))
+  @httpDelete(
+    "/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
+    container.get<express.RequestHandler>("verifyAdmin")
+  )
   async deleteTeam(req: Request, res: Response) {
     try {
       const id = req.params.id;
