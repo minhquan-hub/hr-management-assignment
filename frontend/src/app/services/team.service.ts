@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { User } from '../models/user/user';
 import { HttpService } from './http.service';
 import { TokenStorageService } from './token-storage.service';
 
@@ -13,6 +14,10 @@ export class TeamService {
     private tokenStorageService: TokenStorageService,
     private router: Router
   ) {}
+
+  createMember(data: User): Observable<any> {
+    return this.http.Post('/user', data, this.tokenStorageService.getToken());
+  }
 
   getAllTeam(): Observable<any> {
     return this.http.Get('/team', this.tokenStorageService.getToken());

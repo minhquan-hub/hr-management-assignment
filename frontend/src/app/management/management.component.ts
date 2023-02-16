@@ -1,8 +1,8 @@
 import { TeamService } from './../services/team.service';
 import { Component, OnInit } from '@angular/core';
-import { Team } from '../models/teams/team';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { Team } from '../models/teams/team';
 
 @Component({
   selector: 'app-management',

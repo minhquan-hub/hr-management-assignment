@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { ManagementComponent } from './management/management.component';
 import { Role } from './models/enum/role';
+import { CreateMemberComponent } from './create-member/create-member.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,6 +29,12 @@ const routes: Routes = [
     component: MemberComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Member] },
+  },
+  {
+    path: 'create-member',
+    component: CreateMemberComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.Leader] },
   },
 ];
 

@@ -1,59 +1,126 @@
-<!-- <div class="container-create-member">
+<div class="container-create-member">
   <div class="login">
     <h1>Create Member</h1>
-    <form
-      #userLogin="ngForm"
-      (ngSubmit)="login(userLogin.value)"
-      class="common-form"
-    >
-      <input
-        class="form-input"
-        type="text"
-        ngModel
-        name="fullName"
-        placeholder="Enter FullName"
-      />
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="common-form">
+      <div class="container-item" class="container-item">
+        <label>FullName:</label>
+        <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="fullName"
+          placeholder="Enter FullName"
+        />
+      </div>
 
-      <input
-        class="form-input"
-        type="text"
-        ngModel
-        name="userName"
-        placeholder="Enter UserName"
-      />
+      <div class="container-item">
+        <label>UserName:</label>
+        <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="userName"
+          placeholder="Enter UserName"
+        />
+      </div>
 
-      <input
-        class="form-input"
-        type="text"
-        ngModel
-        name="password"
-        placeholder="Enter Password"
-      />
+      <div class="container-item">
+        <label>Password:</label>
+        <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="password"
+          placeholder="Enter Password"
+        />
+      </div>
 
-      <input
-        class="form-input"
-        type="text"
-        ngModel
-        name="age"
-        placeholder="Enter Age"
-      />
+      <div class="container-item">
+        <label>Age:</label>
+        <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="age"
+          placeholder="Enter Age"
+        />
+      </div>
 
-      <input
-        class="form-input"
-        type="text"
-        ngModel
-        name="gender"
-        placeholder="Enter Password"
-      />
+      <div class="container-item">
+        <label>Gender:</label>
+        <select
+          name="gender"
+          id="gender"
+          class="form-select"
+          formControlName="gender"
+        >
+          <option *ngFor="let gender of genderList" [ngValue]="gender">
+            {{ gender }}
+          </option>
+        </select>
+      </div>
 
-      <input
-        class="form-input"
-        type="text"
-        ngModel
-        name="password"
-        placeholder="Enter Password"
-      />
+      <div class="container-item">
+        <label>Phone:</label>
+        <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="phone"
+          placeholder="Enter Phone"
+        />
+      </div>
+
+      <div class="container-item">
+        <label>Email:</label>
+        <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="email"
+          placeholder="Enter Email"
+        />
+      </div>
+
+      <div class="container-item">
+        <label>City:</label>
+        <input
+          class="form-input"
+          type="text"
+          ngModel
+          formControlName="city"
+          placeholder="Enter City"
+        />
+      </div>
+
+      <div class="container-item">
+        <label>Role:</label>
+        <select
+          name="role"
+          id="role"
+          class="form-select"
+          formControlName="role"
+        >
+          <option *ngFor="let role of roleList" [ngValue]="role">
+            {{ role }}
+          </option>
+        </select>
+      </div>
+
+      <div class="container-item">
+        <label>Status:</label>
+        <select
+          name="status"
+          id="status"
+          class="form-select"
+          formControlName="status"
+        >
+          <option *ngFor="let status of statusList" [ngValue]="status">
+            {{ status }}
+          </option>
+        </select>
+      </div>
       <button class="form-button">Login</button>
     </form>
   </div>
-</div> -->
+</div>

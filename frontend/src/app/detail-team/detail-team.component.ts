@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService } from './../services/team.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/users/user';
+import { User } from '../models/user/user';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 
