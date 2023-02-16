@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ManagementComponent } from './management/management.component';
 import { MemberComponent } from './member/member.component';
+import { CreateMemberComponent } from './create-member/create-member.component';
+import { CreateTeamComponent } from './create-team/create-team.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { MemberComponent } from './member/member.component';
     HomeComponent,
     ManagementComponent,
     MemberComponent,
+    CreateMemberComponent,
+    CreateTeamComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
