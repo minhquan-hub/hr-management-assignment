@@ -19,6 +19,12 @@ img {
     height: 100px;
 }
 
-.adjust-update-link {
-    margin-left: 10px;
+.adjust-icon {
+    margin-left: 5px;
+    margin-right: 5px;
 }
+
+.count {
+  text-align: center;
+}
+

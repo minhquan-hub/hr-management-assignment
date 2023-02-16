@@ -1,6 +1,10 @@
 import { TeamService } from './../services/team.service';
 import { Component, OnInit } from '@angular/core';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTrash,
+  faEdit,
+  faSquarePlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { Team } from '../models/teams/team';
 
@@ -12,6 +16,7 @@ import { Team } from '../models/teams/team';
 export class ManagementComponent implements OnInit {
   teamList: Team[] = [];
   memberCount: number = 0;
+  iconPlus = faSquarePlus;
   iconDelete = faTrash;
   iconEdit = faEdit;
   subscriptionTeam: Subscription | undefined;

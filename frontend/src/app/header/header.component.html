@@ -6,26 +6,28 @@
       <li><a routerLink="/login">Login</a></li>
     </ul>
     <ul *ngSwitchCase="'admin'">
-      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="/management">Home</a></li>
+      <li><a routerLink="/management/all-member">All Member</a></li>
       <li><a routerLink="/management/create-team">Create Team</a></li>
       <li><a routerLink="/management/create-member">Create Member</a></li>
       <li>
-        <a routerLink="/">{{ userName | titlecase }}</a>
+        <a routerLink="/management">{{ userName | titlecase }}</a>
       </li>
       <li><a (click)="logout()" class="logout">Logout</a></li>
     </ul>
     <ul *ngSwitchCase="'leader'">
-      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="/management">Home</a></li>
+      <li><a routerLink="/management/all-member">All Member</a></li>
       <li><a routerLink="/management/create-member">Create Member</a></li>
       <li>
-        <a routerLink="/">{{ userName | titlecase }}</a>
+        <a routerLink="/management">{{ userName | titlecase }}</a>
       </li>
       <li><a (click)="logout()">Logout</a></li>
     </ul>
     <ul *ngSwitchCase="'member'">
-      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="/member">Home</a></li>
       <li>
-        <a routerLink="/">{{ userName | titlecase }}</a>
+        <a routerLink="/management">{{ userName | titlecase }}</a>
       </li>
       <li><a (click)="logout()">Logout</a></li>
     </ul>

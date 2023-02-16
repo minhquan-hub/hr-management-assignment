@@ -35,14 +35,18 @@ export class TeamService {
     );
   }
 
-  getAllMemberByTeamId(teamId: string) {
+  getAllMember(): Observable<any> {
+    return this.http.Get('/user', this.tokenStorageService.getToken());
+  }
+
+  getAllMemberByTeamId(teamId: string): Observable<any> {
     return this.http.Get(
       `/team/get-all-member/${teamId}`,
       this.tokenStorageService.getToken()
     );
   }
 
-  removeMember(teamId: string, memberId: string) {
+  removeMember(teamId: string, memberId: string): Observable<any> {
     return this.http.Put(
       `/team/remove-member/${teamId}`,
       memberId,
@@ -50,9 +54,16 @@ export class TeamService {
     );
   }
 
-  deleteTeam(teamId: string) {
+  deleteTeam(teamId: string): Observable<any> {
     return this.http.Delete(
       `/team/${teamId}`,
+      this.tokenStorageService.getToken()
+    );
+  }
+
+  deleteMember(memberId: string): Observable<any> {
+    return this.http.Delete(
+      `/user/${memberId}`,
       this.tokenStorageService.getToken()
     );
   }

@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TeamService } from './../services/team.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user/user';
@@ -19,13 +19,11 @@ export class DetailTeamComponent implements OnInit {
 
   constructor(
     private teamService: TeamService,
-    private router: Router,
     private activeRouter: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.teamId = this.activeRouter.snapshot.paramMap.get('id');
-    console.log(this.teamId);
     this.subscriptionMember = this.getAllMember();
   }
 

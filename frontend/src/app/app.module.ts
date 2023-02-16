@@ -14,6 +14,8 @@ import { CreateMemberComponent } from './create-member/create-member.component';
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { DetailTeamComponent } from './detail-team/detail-team.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AllMemberComponent } from './all-member/all-member.component';
+import { AddMemberComponent } from './add-member/add-member.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CreateMemberComponent,
     CreateTeamComponent,
     DetailTeamComponent,
+    AllMemberComponent,
+    AddMemberComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { AllMemberComponent } from './all-member/all-member.component';
 import { DetailTeamComponent } from './detail-team/detail-team.component';
 import { AuthGuard } from './shared/auth.guard';
 import { MemberComponent } from './member/member.component';
@@ -9,6 +10,7 @@ import { ManagementComponent } from './management/management.component';
 import { Role } from './models/enum/role';
 import { CreateMemberComponent } from './create-member/create-member.component';
 import { CreateTeamComponent } from './create-team/create-team.component';
+import { AddMemberComponent } from './add-member/add-member.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -40,6 +42,18 @@ const routes: Routes = [
   {
     path: 'management/create-member',
     component: CreateMemberComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.Leader] },
+  },
+  {
+    path: 'management/all-member',
+    component: AllMemberComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin, Role.Leader] },
+  },
+  {
+    path: 'management/add-member',
+    component: AddMemberComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin, Role.Leader] },
   },

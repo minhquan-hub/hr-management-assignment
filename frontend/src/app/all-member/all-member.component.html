@@ -1,6 +1,5 @@
 <div class="team-list">
   <h1>All Member</h1>
-  <!-- <p class="message-p">{{ productMessage }}</p> -->
   <table>
     <thead>
       <tr>
@@ -12,6 +11,7 @@
         <th>Phone</th>
         <th>Email</th>
         <th>City</th>
+        <th>Role</th>
         <th></th>
       </tr>
     </thead>
@@ -25,11 +25,9 @@
         <td>{{ item.phone }}</td>
         <td>{{ item.email }}</td>
         <td>{{ item.city }}</td>
+        <td>{{ item.role }}</td>
         <td>
-          <fa-icon
-            (click)="removeMember(item.id)"
-            [icon]="iconDelete"
-          ></fa-icon>
+          <fa-icon (click)="deleteTeam(item.id)" [icon]="iconDelete"></fa-icon>
           <a class="adjust-update-link" routerLink="/management"
             ><fa-icon [icon]="iconEdit"></fa-icon
           ></a>
