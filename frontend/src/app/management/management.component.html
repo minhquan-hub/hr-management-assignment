@@ -27,11 +27,11 @@
             [icon]="iconPlus"
           ></fa-icon>
           <fa-icon
-            class="adjust-icon"
+            class="adjust-icon {{ isDisabled }}"
             (click)="deleteTeam(item.id)"
             [icon]="iconDelete"
           ></fa-icon>
-          <a class="adjust-icon" routerLink="/management"
+          <a class="adjust-icon {{ isDisabled }}" routerLink="/management"
             ><fa-icon [icon]="iconEdit"></fa-icon
           ></a>
         </td>

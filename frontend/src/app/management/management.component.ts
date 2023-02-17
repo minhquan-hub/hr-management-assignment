@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../services/token-storage.service';
 import { TeamService } from './../services/team.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -16,15 +17,20 @@ import { Team } from '../models/teams/team';
 export class ManagementComponent implements OnInit {
   teamList: Team[] = [];
   memberCount: number = 0;
+  isDisabled: string | null = '';
   iconPlus = faSquarePlus;
   iconDelete = faTrash;
   iconEdit = faEdit;
   subscriptionTeam: Subscription | undefined;
 
-  constructor(private teamService: TeamService) {}
+  constructor(
+    private teamService: TeamService,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   ngOnInit(): void {
     this.subscriptionTeam = this.getAllTeam();
+    this.onDisabled();
   }
 
   getAllTeam(): Subscription {
@@ -40,5 +46,11 @@ export class ManagementComponent implements OnInit {
       }
       this.subscriptionTeam = this.getAllTeam();
     });
+  }
+
+  onDisabled() {
+    if (this.tokenStorageService.getRole() === 'leader') {
+      this.isDisabled = 'disabled';
+    }
   }
 }
