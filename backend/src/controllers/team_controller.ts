@@ -43,7 +43,7 @@ export default class TeamController {
     container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
-  async addMember(req: Request, res: Response, next: NextFunction) {
+  async addMember(req: Request, res: Response) {
     try {
       const id = req.params.id;
       const memberId = req.body.memberId;
@@ -63,11 +63,33 @@ export default class TeamController {
   }
 
   @httpGet(
+    "/:id",
+    container.get<express.RequestHandler>("verifyLogin"),
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
+  )
+  async getTeamById(req: Request, res: Response) {
+    try {
+      const id = req.params.id;
+      const team = await this._teamService.getTeamById(id);
+      console.log(team);
+      logger.info(`Get team by Id: ${team}`);
+      return res.status(StatusCodes.OK).json(team);
+    } catch (error) {
+      logger.error(
+        `The error is at getTeamById method of TeamController: ${error}`
+      );
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
+
+  @httpGet(
     "/",
     container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdminAndLeader")
   )
-  async getAllTeam(req: Request, res: Response, next: NextFunction) {
+  async getAllTeam(req: Request, res: Response) {
     try {
       const teamList = await this._teamService.getAllTeam();
       logger.info(`Get all team: ${teamList}`);
@@ -87,7 +109,7 @@ export default class TeamController {
     container.get<express.RequestHandler>("verifyLogin"),
     container.get<express.RequestHandler>("verifyAdmin")
   )
-  async getAllLeader(req: Request, res: Response, next: NextFunction) {
+  async getAllLeader(req: Request, res: Response) {
     try {
       const leaderList = await this._teamService.getAllLeader();
       logger.info(`Get all leader: ${leaderList}`);

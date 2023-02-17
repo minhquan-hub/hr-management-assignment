@@ -7,6 +7,7 @@ import { ITeam } from "../models/interface_model/team_interface_model";
 export interface ITeamService {
   addTeam(teamCreateDto: TeamCreateDto): Promise<TeamDto | undefined>;
   addMember(id: string, memberId: string): Promise<TeamDto | undefined>;
+  getTeamById(id: string): Promise<TeamDto | undefined>;
   getAllTeam(): Promise<TeamDto[] | undefined>;
   getAllLeader(): Promise<UserDto[] | undefined>;
   getAllMemberByTeamId(teamId: string): Promise<UserDto[] | undefined>;

@@ -1,3 +1,5 @@
+import { Status } from "./../ultils/enum/status_enum";
+import { Role } from "./../ultils/enum/role_enum";
 import bcrypt from "bcrypt";
 import { injectable } from "inversify";
 import { UserCreateDto } from "../dtos/user/user_create_dto";
@@ -53,7 +55,7 @@ class UserService implements IUserService {
         isDeleted: false,
         status: "available",
         role: ["leader", "member"],
-      });
+      }).exec();
 
       let userDtoList: UserDto[] = [];
 
@@ -88,6 +90,51 @@ class UserService implements IUserService {
       console.log("Error: " + error);
       logger.error(
         `The error is at getAllUser method of UserService: ${error}`
+      );
+    }
+  }
+
+  async getAllUserWithMemberRole(): Promise<UserDto[] | undefined> {
+    try {
+      const userList = await User.find({
+        isDeleted: false,
+        role: "member",
+        status: Status.Available,
+      }).exec();
+
+      let userDtoList: UserDto[] = [];
+
+      for (let user of userList) {
+        const {
+          _id,
+          fullName,
+          userName,
+          age,
+          gender,
+          phone,
+          email,
+          city,
+          role,
+        } = user;
+
+        userDtoList.push({
+          id: _id,
+          fullName: fullName,
+          userName: userName,
+          age: age,
+          gender: gender,
+          phone: phone,
+          email: email,
+          city: city,
+          role: role,
+        });
+      }
+
+      return userDtoList;
+    } catch (error) {
+      console.log("Error: " + error);
+      logger.error(
+        `The error is at getAllUserWithMemberRole method of UserService: ${error}`
       );
     }
   }

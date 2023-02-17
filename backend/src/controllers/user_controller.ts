@@ -34,7 +34,7 @@ export default class UserController {
       logger.info(`Added User ${user}`);
       return res.status(StatusCodes.OK).json(user);
     } catch (error) {
-      logger.error(`The error is at get method addUser: ${error}`);
+      logger.error(`The error is at addUser method of UserService: ${error}`);
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json("Something server error");
@@ -49,10 +49,32 @@ export default class UserController {
   async getAllUser(req: Request, res: Response) {
     try {
       const userList = await this._userService.getAllUser();
-      logger.info(`Get All Users: ${userList}`);
+      logger.info(`Get All User: ${userList}`);
       res.status(StatusCodes.OK).json(userList);
     } catch (error) {
-      logger.error(`The error is at get method getAllUser: ${error}`);
+      logger.error(
+        `The error is at getAllUser method of UserService: ${error}`
+      );
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json("Something server error");
+    }
+  }
+
+  @httpGet(
+    "/get-all-user-with-member-role",
+    container.get<express.RequestHandler>("verifyLogin"),
+    container.get<express.RequestHandler>("verifyAdminAndLeader")
+  )
+  async getAllUserWithMemberRole(req: Request, res: Response) {
+    try {
+      const userList = await this._userService.getAllUserWithMemberRole();
+      logger.info(`Get All User With Member Role: ${userList}`);
+      res.status(StatusCodes.OK).json(userList);
+    } catch (error) {
+      logger.error(
+        `The error is at getAllUserWithMemberRole method of UserService: ${error}`
+      );
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json("Something server error");
@@ -74,7 +96,9 @@ export default class UserController {
         .status(StatusCodes.OK)
         .json({ message: "Updated User successfully", isSuccess: true });
     } catch (error) {
-      logger.error(`The error is at get method updateUser: ${error}`);
+      logger.error(
+        `The error is at updateUser method method of UserService: ${error}`
+      );
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json("Something server error");
@@ -95,7 +119,9 @@ export default class UserController {
         .status(StatusCodes.OK)
         .json({ message: "Deleted User successfully", isSuccess: true });
     } catch (error) {
-      logger.error(`The error is at get method deleteUser: ${error}`);
+      logger.error(
+        `The error is at deleteUser method of UserService: ${error}`
+      );
       res
         .status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json("Something server error");
