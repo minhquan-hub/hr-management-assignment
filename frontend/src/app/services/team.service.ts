@@ -24,6 +24,13 @@ export class TeamService {
     return this.http.Post('/team', data, this.tokenStorageService.getToken());
   }
 
+  getTeamById(teamId: string): Observable<any> {
+    return this.http.Get(
+      `/team/${teamId}`,
+      this.tokenStorageService.getToken()
+    );
+  }
+
   getAllTeam(): Observable<any> {
     return this.http.Get('/team', this.tokenStorageService.getToken());
   }
@@ -42,6 +49,13 @@ export class TeamService {
   getAllMemberByTeamId(teamId: string): Observable<any> {
     return this.http.Get(
       `/team/get-all-member/${teamId}`,
+      this.tokenStorageService.getToken()
+    );
+  }
+
+  getAllUserWithMemberRole(): Observable<any> {
+    return this.http.Get(
+      `/user/get-all-user-with-member-role`,
       this.tokenStorageService.getToken()
     );
   }

@@ -30,7 +30,6 @@ export class AuthGuard implements CanActivate {
         route.data['roles'] &&
         route.data['roles'].indexOf(userData.role) === -1
       ) {
-        console.log(this.router.url);
         this.router.navigate([this.router.url]);
         return false;
       }

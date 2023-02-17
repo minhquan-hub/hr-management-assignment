@@ -4,19 +4,12 @@
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="common-form">
       <div class="container-item">
         <label>TeamName:</label>
-        <p>hieuteam</p>
-        <!-- <input
-          class="form-input"
-          type="text"
-          ngModel
-          formControlName="name"
-          placeholder="Enter TeamName"
-        /> -->
+        <p>{{ team?.name }}</p>
       </div>
 
       <div class="container-item">
         <label>Team Leader:</label>
-        <p>Minh Tran</p>
+        <p>{{ team?.teamLeader?.fullName }}</p>
       </div>
 
       <div class="container-item">

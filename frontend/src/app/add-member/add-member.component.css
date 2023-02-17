@@ -1,5 +1,4 @@
-.container-login {
-}
+
 
 .login {
   text-align: center;
@@ -17,14 +16,24 @@
 .container-item {
   display: flex;
   align-items: center;
-  text-align: space-between;
+  text-align: flex-start;
   border-color: blueviolet;
+}
+
+.container-item select {
+  height: 25px;
+  width: 170px;
+}
+
+.container-item p {
+  display: inline-flex;
+  width: 150px;
 }
 
 
 label {
-  display: inline-block;
-  align-content: center;
+  padding-top: 7px;
+  display: inline-flex;
   width: 130px;
   margin-bottom: 10px;
   margin-right: 10px;

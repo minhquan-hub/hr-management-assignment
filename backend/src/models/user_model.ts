@@ -18,7 +18,7 @@ const UserSchema: Schema = new Schema({
   phone: { type: String },
   email: { type: String, required: true },
   city: { type: String, required: true },
-  role: { type: String, required: true },
+  role: { type: String, enum: Role, required: true },
   status: { type: String, enum: Status, required: true },
   isDeleted: { type: Boolean, required: true, default: false },
 });
